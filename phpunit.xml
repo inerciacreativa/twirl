@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit backupGlobals="false"
+		 backupStaticAttributes="false"
+		 bootstrap="vendor/autoload.php"
+		 cacheResult="false"
+		 colors="true"
+		 convertErrorsToExceptions="true"
+		 convertNoticesToExceptions="true"
+		 convertWarningsToExceptions="true"
+		 processIsolation="false"
+		 stopOnFailure="false"
+		 testdox="true"
+>
+	<testsuites>
+		<testsuite name="Twirl Test Suite">
+			<directory>./tests/</directory>
+		</testsuite>
+	</testsuites>
+
+	<php>
+		<ini name="error_reporting" value="-1"/>
+		<ini name="xdebug.overload_var_dump" value="0"/>
+	</php>
+
+	<coverage processUncoveredFiles="true">
+		<include>
+			<directory suffix=".php">./src/</directory>
+		</include>
+	</coverage>
+</phpunit>
