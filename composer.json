@@ -36,7 +36,7 @@
 			"Twirl\\": "src/"
 		},
 		"files": [
-			"src/String/helpers.php"
+			"src/String/bootstrap.php"
 		]
 	},
 	"autoload-dev": {
