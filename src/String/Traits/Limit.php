@@ -11,6 +11,8 @@ namespace Twirl\String\Traits;
 trait Limit
 {
 
+	private static string $unicodeWhitespaces = '\pZ\pC';
+
 	/**
 	 * Limit the number of characters in a string.
 	 *
@@ -73,7 +75,7 @@ trait Limit
 	public static function ltrim(string $string, string $chars = '', bool $spaces = true): string
 	{
 		if ($spaces) {
-			$chars .= '\pZ\pC';
+			$chars .= static::$unicodeWhitespaces;
 		}
 
 		return preg_replace('/^[' . $chars . ']+/u', '', $string);
@@ -89,7 +91,7 @@ trait Limit
 	public static function rtrim(string $string, string $chars = '', bool $spaces = true): string
 	{
 		if ($spaces) {
-			$chars .= '\pZ\pC';
+			$chars .= static::$unicodeWhitespaces;
 		}
 
 		return preg_replace('/[' . $chars . ']+$/u', '', $string);
@@ -105,7 +107,7 @@ trait Limit
 	public static function trim(string $string, string $chars = '', bool $spaces = true): string
 	{
 		if ($spaces) {
-			$chars .= '\pZ\pC';
+			$chars .= static::$unicodeWhitespaces;
 		}
 
 		return preg_replace('/^[' . $chars . ']+|[' . $chars . ']+$/u', '', $string);
@@ -115,22 +117,17 @@ trait Limit
 	 * Normalizes the whitespaces of a given string.
 	 *
 	 * @param string $string
+	 * @param bool   $entities
 	 *
 	 * @return string
 	 */
-	public static function whitespace(string $string): string
+	public static function whitespace(string $string, bool $entities = true): string
 	{
-		// Replace non-breaking space entities
-		$string = str_replace([
-			'&nbsp;',
-			'&#x000A0;',
-			'&#xA0;',
-			'&#160;',
-		], ' ', $string);
-		// Replace non-breaking space Unicode
-		$string = (string) preg_replace('/(\x{00A0})/iu', ' ', $string);
-		// Remove multiple whitespaces and line breaks
-		$string = (string) preg_replace('/\s+/u', ' ', $string);
+		if ($entities) {
+			$string = static::fromEntities($string);
+		}
+
+		$string = preg_replace('/[' . static::$unicodeWhitespaces . ']+/u', ' ', $string);
 
 		return trim($string);
 	}
