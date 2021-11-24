@@ -29,4 +29,5 @@ class Str
 	use Replace;
 
 	use Test;
+
 }
