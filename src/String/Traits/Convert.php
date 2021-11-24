@@ -18,21 +18,21 @@ trait Convert
 	 *
 	 * @var array
 	 */
-	protected static array $snakeCache = [];
+	private static array $snakeCache = [];
 
 	/**
 	 * The cache of camel-cased words.
 	 *
 	 * @var array
 	 */
-	protected static array $camelCache = [];
+	private static array $camelCache = [];
 
 	/**
 	 * The cache of studly-cased words.
 	 *
 	 * @var array
 	 */
-	protected static array $studlyCache = [];
+	private static array $studlyCache = [];
 
 	/**
 	 * Transliterate a UTF-8 value to ASCII.
